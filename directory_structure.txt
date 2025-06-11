@@ -506,6 +506,25 @@
 ├── docker-compose.yaml
 ├── extract_transform.ipynb
 ├── load_to_database.ipynb
-└── pyproject.toml
+├── pyproject.toml
+├── sql
+│   ├── transform_crashes.sql
+│   ├── transform_persons.sql
+│   └── transform_vehicles.sql
+├── src
+│   ├── extraction
+│   │   ├── __init__.py
+│   │   ├── base_extractor.py
+│   │   └── mvc_extractor.py
+│   ├── loading
+│   ├── pipeline
+│   ├── transformation
+│   │   ├── __init__.py
+│   │   ├── mvc_transformation.py
+│   │   └── transform.ipynb
+│   └── utils
+│       ├── __init__.py
+│       └── db_config.py
+└── uv.lock
 
-10 directories, 499 files
+17 directories, 511 files
