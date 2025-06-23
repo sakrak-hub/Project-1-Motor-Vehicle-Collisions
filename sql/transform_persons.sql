@@ -85,6 +85,8 @@ WHERE complaint IS NULL;
 ALTER TABLE motor_vehicle_collisions.temp_transform_persons_silver
 ALTER COLUMN complaint TYPE VARCHAR(25) USING complaint::VARCHAR(25);
 
+DROP TABLE IF EXISTS motor_vehicle_collisions.mvc_persons_silver;
+
 CREATE TABLE IF NOT EXISTS motor_vehicle_collisions.mvc_persons_silver
 AS (SELECT _dlt_id,
  _dlt_load_id,

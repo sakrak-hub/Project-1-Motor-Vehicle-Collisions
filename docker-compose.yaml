@@ -1,0 +1,48 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: loader
+      POSTGRES_PASSWORD: pipeloader
+      POSTGRES_DB: dlt_data
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - backend
+    depends_on:
+      - postgres
+
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: python_container
+    ports:
+      - "8501:8501"  # Streamlit port
+    volumes:
+      - .:/app
+    networks:
+      - backend
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  backend:

@@ -110,13 +110,15 @@ ALTER TABLE motor_vehicle_collisions.temp_transform_crashes_silver
 ALTER COLUMN zip_code TYPE INTEGER USING zip_code::INTEGER;
 
 ALTER TABLE motor_vehicle_collisions.temp_transform_crashes_silver
-ALTER COLUMN latitude TYPE INTEGER USING latitude::NUMERIC;
+ALTER COLUMN latitude TYPE NUMERIC USING latitude::NUMERIC;
 
 ALTER TABLE motor_vehicle_collisions.temp_transform_crashes_silver
-ALTER COLUMN longitude TYPE INTEGER USING longitude::NUMERIC;
+ALTER COLUMN longitude TYPE NUMERIC USING longitude::NUMERIC;
 
 ALTER TABLE motor_vehicle_collisions.temp_transform_crashes_silver
 DROP COLUMN IF EXISTS location__latitude, DROP COLUMN IF EXISTS location__longitude;
+
+DROP TABLE IF EXISTS motor_vehicle_collisions.mvc_crashes_silver;
 
 CREATE TABLE IF NOT EXISTS motor_vehicle_collisions.mvc_crashes_silver
 AS (SELECT _dlt_id, _dlt_load_id, collision_id, crash_date, crash_time,

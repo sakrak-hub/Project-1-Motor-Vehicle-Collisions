@@ -1,3 +1,3 @@
-from .dlt_loader import add_to_pipeline
+from .dlt_loader import *
 
-__all__ = ["add_to_pipeline"]
+__all__ = ["drop_raw_tables", "load_to_postgres"]

@@ -54,3 +54,4 @@ Pipeline Overview
 
 ![alt text](MVC_ELT_Pipeline.png)
 
+Data Ingestion with Python(dlt) and Postgres

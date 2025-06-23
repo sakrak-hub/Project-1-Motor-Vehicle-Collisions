@@ -97,6 +97,8 @@ SET contributing_factor_2 = (
 ALTER TABLE motor_vehicle_collisions.temp_transform_vehicles_silver
 ALTER COLUMN contributing_factor_2 TYPE VARCHAR(50) USING contributing_factor_2::VARCHAR(50);
 
+DROP TABLE IF EXISTS motor_vehicle_collisions.mvc_vehicles_silver;
+
 CREATE TABLE IF NOT EXISTS motor_vehicle_collisions.mvc_vehicles_silver
 AS (SELECT _dlt_id,
  _dlt_load_id,

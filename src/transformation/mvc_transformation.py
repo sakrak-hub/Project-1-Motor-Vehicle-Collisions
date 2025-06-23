@@ -1,14 +1,14 @@
 import pandas as pd
 from sqlalchemy import create_engine,text
 import psycopg2
-from utils.db_config import get_postgres_connection_url
+from src.utils.db_config import get_postgres_connection_url
 
 engine = create_engine(get_postgres_connection_url())
 
 schema = "motor_vehicle_collisions"
 table_list = ["mvc_crashes", "mvc_persons", "mvc_vehicles"]
 
-def drop_high_null_count_columns(table_name: str, threshold: float = 0.5):
+def drop_high_null_count_columns(table_name: str, schema: str, threshold: float = 0.5):
     null_count_query = f"""
     SELECT key AS column, COUNT(*) AS null_values
     FROM {schema}.{table_name}_raw t
@@ -52,9 +52,3 @@ def convert_type_remove_nulls(sql_file: str):
                     except Exception as e:
                         print(f"Error: {e}")
                     statement = ""
-
-
-for table in table_list:
-    drop_high_null_count_columns(table)
-    sql_name = f"transform_{table.split('_')[1]}.sql"
-    convert_type_remove_nulls(f"/mnt/d/Projects/Project-1-Motor-Vehicle-Collisions-/sql/{sql_name}")

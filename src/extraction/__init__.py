@@ -1,4 +1,4 @@
-from .base_extractor import BaseExtractor
-from .mvc_extractor import MVCExtractor
+from .base_extractor import *
+from .mvc_extractor import *
 
 __all__ = ['BaseExtractor', 'MVCExtractor']

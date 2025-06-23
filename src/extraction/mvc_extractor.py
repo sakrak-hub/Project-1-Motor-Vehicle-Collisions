@@ -1,8 +1,7 @@
 import pandas as pd
 import requests
-import dlt
-from extraction.base_extractor import BaseExtractor
-from loading.dlt_loader import add_to_pipeline
+from .base_extractor import BaseExtractor
+from src.loading import load_to_postgres
 
 
 class MVCExtractor(BaseExtractor):
@@ -16,6 +15,7 @@ class MVCExtractor(BaseExtractor):
         super().__init__(base_url="", limit=limit)
         self.limit_param = "$limit"
         self.offset_param = "$offset"
+        self.schema = "motor_vehicle_collisions"
 
     def extract_to_postgres(self):
         for source, name in self.src_dict.items():
@@ -32,7 +32,7 @@ class MVCExtractor(BaseExtractor):
                     limit_param=self.limit_param,
                     offset_param=self.offset_param
                 )
-                self.add_to_pipeline(data, name)
+                load_to_postgres(data, name, self.schema)
                 page_offset += 50000
                 page += 1
                 response = requests.get(f"{source}?{self.limit_param}=1000&{self.offset_param}={page_offset + 1000}")
