@@ -45,7 +45,7 @@ def main():
     # Configuration
     HOST = "localhost"
     PORT = 8501
-    MAX_WAIT_TIME = 120  # seconds
+    MAX_WAIT_TIME = 28800  # seconds
     SHOW_LOGS = True  # Set to False to run in detached mode without logs
     
     try:

@@ -54,4 +54,14 @@ Pipeline Overview
 
 ![alt text](MVC_ELT_Pipeline.png)
 
-Data Ingestion with Python(dlt) and Postgres
+Workflow Process
+
+1) A cronjob is set up to execute a Python file every Monday at 10 a.m
+
+2) Python file runs a docker compose file, setting up Python, PGAdmin, and Postgres
+
+3) The python files extract and load the data from "NYC Open Data - Motor Vehicle Collisions" to postgres database which can be accessed through PGAdmin on localhost:5050/
+
+4) Transform is executed through Postgres SQL queries using python script
+
+5) The data is then aggregated and displayed using Streamlit on localhost:8501/
