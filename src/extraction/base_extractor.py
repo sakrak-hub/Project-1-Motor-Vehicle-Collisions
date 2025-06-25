@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from typing import Generator, Any
-import dlt
 from dlt.sources.helpers.rest_client import RESTClient
 from dlt.sources.helpers.rest_client.paginators import OffsetPaginator
 
@@ -11,13 +10,9 @@ class BaseExtractor(ABC):
         self.limit = limit
 
     def create_client(self, offset: int, max_offset: int, limit_param: str, offset_param: str) -> RESTClient:
-        headers = {
-                    "X-App-Token": dlt.secrets.value["sources.mvc_api"]["app_token"]
-                }
 
         return RESTClient(
             base_url=self.base_url,
-            headers=headers,
             paginator=OffsetPaginator(
                 limit=self.limit,
                 offset=offset,

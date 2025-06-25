@@ -1,67 +1,114 @@
-Motor Vehicle Collision ELT Pipeline and Data Analysis Project
+# 🚗 Motor Vehicle Collision ELT Pipeline and Data Analysis
 
-The aim of this project is to extract motor vehicle collision data from NYC Open Data website, namely crashes, vehicles and persons data and create analysis of crashes and fatalities based on the obtained data. The data is downloaded and transformed once a month since they are updated retroactively and do not have sufficient specific ids to identify unique rows.
+This project automates the extraction, transformation, and visualization of motor vehicle collision data from NYC Open Data. It covers crash events, involved vehicles, and persons affected, and produces a monthly updated dashboard with analytical insights.
 
-Problem Statement
+---
 
-Downloading the data manually from the website would be a tedious process and processing more than 3 million rows would be impossible to achieve manually. To address this, this pipeline aims to achieve the following:
+## 📌 Problem Statement
 
-1) Downloading Motor Vehicle Collisions data(crashes, vehicles, persons) directly into Postgresql using dlt.
+NYC's collision datasets contain **millions of rows**, making manual downloading and processing impractical. Additionally, data is **updated retroactively** and lacks stable unique identifiers for deduplication.
 
-2) Transformation of data with Python, Pandas and sqlalchemy directly in Postgresql with a new transformed database. The downloaded file remains in a seperate table(bronze layer) as a backup for the data.
+This project solves the problem by:
 
-3) The transformed files(silver layer) is further cleaned for nulls and duplicates again with Python Pandas and sqlalchemy.
+1. Automating **monthly ingestion** of three datasets (crashes, vehicles, persons).
+2. Using **DLT** to load raw data into **PostgreSQL** (bronze layer).
+3. Performing **data cleaning and transformation** (silver layer) using **Python (Pandas)** and **SQLAlchemy**.
+4. Generating **aggregated insights and visualizations** using **Streamlit**.
 
-4) Analytics is then performed on the data and the following aggregates are obtained from the motor vehicle collisions data:
+---
 
-    Time-based Analysis:
+## 🛠️ Technologies Used
 
-    1)Crashes by hour of day
-    2)Crashes by day of week and month (seasonal patterns)
-    3)Year-over-year trends 
+- `DLT` – Extraction and loading
+- `PostgreSQL` – Raw and transformed data storage
+- `SQLAlchemy + Pandas` – Transformations and cleaning
+- `Streamlit` – Interactive dashboard
+- `Docker + Docker Compose` – Environment and orchestration
+- `cron` – Monthly automation
 
-    Geographic Analysis:
+---
 
-    1)Crashes by borough (using the borough column)
-    2)Hot spots using latitude/longitude clustering
-    3)Zip code analysis for neighborhood-level insights
+## 🔄 ELT Workflow
 
-    Severity Analysis:
+![Pipeline Overview](MVC_ELT_Pipeline.png)
 
-    1)Fatality rates by vehicle type or contributing factors
-    2)Injury severity distribution (persons injured vs killed)
-    3)Pedestrian vs cyclist vs motorist casualty rates
+---
 
-    Contributing Factor Analysis:
+## 🧪 Workflow Process
 
-    1)Most common contributing factors leading to crashes
-    2)Which factors correlate with higher fatality rates
-    3)Vehicle-specific contributing factors
+1. A **cron job** triggers a Python script **every Monday at 10 AM**.
+2. This script executes a **Docker Compose** setup: Python app + PostgreSQL + PGAdmin.
+3. The Python pipeline extracts and loads NYC Open Data into **PostgreSQL** (bronze layer).
+4. **Transform SQL queries** clean and prepare data into new tables (silver layer).
+5. **Streamlit app** displays aggregated data on `localhost:8501`.
 
-    Demographic Patterns:
+---
 
-    1)Age group analysis of persons involved
-    2)Gender patterns in different types of crashes
-    3)Person type (driver, passenger, pedestrian) injury rates
+## 📊 Analysis and Insights
 
-    Vehicle Analysis:
+### 🕒 Time-Based Analysis
+- Crashes by **hour of day**
+- Crashes by **day of week** and **month**
+- **Year-over-year** trends
 
-    1)Most crash-prone vehicle types and makes
-    2)Vehicle age vs crash severity
-    3)Vehicle occupancy patterns in crashes
+### 🌍 Geographic Analysis
+- Crashes by **borough**
+- **Hotspot heatmaps** (lat/lon clustering)
+- **Zip code** crash analysis
 
-Pipeline Overview
+### 💥 Severity Analysis
+- Fatality rates by **vehicle type** and **cause**
+- Injury severity distribution (injured vs killed)
+- Casualties by role: **pedestrian**, **cyclist**, **motorist**
 
-![alt text](MVC_ELT_Pipeline.png)
+### ⚠️ Contributing Factors
+- Most common crash causes
+- Factors linked to high fatality rates
+- Vehicle-specific contributing patterns
 
-Workflow Process
+### 👤 Demographic Patterns
+- **Age** group distribution
+- Gender patterns across crash types
+- Injury rates by person type (driver/passenger/pedestrian)
 
-1) A cronjob is set up to execute a Python file every Monday at 10 a.m
+### 🚘 Vehicle Patterns
+- Top **vehicle types and makes** in crashes
+- Impact of **vehicle age**
+- **Occupancy patterns** and outcomes
 
-2) Python file runs a docker compose file, setting up Python, PGAdmin, and Postgres
+---
 
-3) The python files extract and load the data from "NYC Open Data - Motor Vehicle Collisions" to postgres database which can be accessed through PGAdmin on localhost:5050/
+## 📁 Directory Structure
 
-4) Transform is executed through Postgres SQL queries using python script
+```
+.
+├── src/
+│   ├── extraction/
+│   ├── transformation/
+│   ├── loading/
+│   ├── visualisation/
+│   └── utils/
+├── sql/
+├── data/
+├── Dockerfile
+├── docker-compose.yaml
+├── main.py
+├── requirements.txt
+└── README.md
+```
 
-5) The data is then aggregated and displayed using Streamlit on localhost:8501/
+---
+
+## ✅ Future Improvements
+
+- Add **unit tests** and data quality checks
+- Connect to **cloud warehouse (BigQuery/Snowflake)**
+- Add **real-time alerts** and anomaly detection
+
+---
+
+### 🔗 Access Dashboard
+
+- **PostgreSQL**: [localhost:5432](http://localhost:5432)
+- **PGAdmin**: [localhost:5050](http://localhost:5050)
+- **Dashboard**: [localhost:8501](http://localhost:8501)
