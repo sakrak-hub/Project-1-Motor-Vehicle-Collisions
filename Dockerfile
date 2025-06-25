@@ -9,6 +9,9 @@ RUN curl -Ls https://astral.sh/uv/install.sh | bash
 # Make sure uv is available
 ENV PATH="/root/.local/bin:$PATH"
 
+# Add PYTHONPATH so Python can find 'src'
+ENV PYTHONPATH="/app"
+
 # Set workdir
 WORKDIR /app
 

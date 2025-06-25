@@ -3,10 +3,8 @@ services:
   postgres:
     image: postgres:latest
     container_name: postgres_container
-    environment:
-      POSTGRES_USER: loader
-      POSTGRES_PASSWORD: pipeloader
-      POSTGRES_DB: dlt_data
+    env_file:
+      - ./src/utils/secrets/postgres.env
     ports:
       - "5432:5432"
     volumes:
@@ -31,6 +29,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - PYTHONPATH=/app
     container_name: python_container
     ports:
       - "8501:8501"  # Streamlit port
