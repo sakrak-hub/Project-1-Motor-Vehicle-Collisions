@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo /usr/bin/python3 app_launcher.py 
+sudo docker-compose up
 
 # Optional: Log the execution
-echo "Docker Compose cron job executed at $(date)" >> /var/log/docker_compose_cron.log
+echo "Docker Compose cron job executed at $(date)" >>/var/log/docker_compose_cron.log

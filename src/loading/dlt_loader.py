@@ -2,11 +2,11 @@ import dlt
 from src.utils.db_config import get_postgres_connection_url
 from sqlalchemy import create_engine, text
 
-def drop_raw_tables():
+def drop_raw_tables(table_names):
     engine = create_engine(get_postgres_connection_url())
 
-    query = """
-    DROP SCHEMA IF EXISTS motor_vehicle_collisions CASCADE;
+    query = f"""
+    DROP TABLE IF EXISTS motor_vehicle_collisions.{table_names}_raw CASCADE;
     """
 
     # Explicitly commit after executing DDL

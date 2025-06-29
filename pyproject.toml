@@ -172,3 +172,8 @@ dependencies = [
     "widgetsnbextension==3.6.10",
     "zipp==3.23.0",
 ]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+]

@@ -1411,6 +1411,11 @@ dependencies = [
     { name = "zipp" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "ipykernel" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "altair", specifier = "==5.5.0" },
@@ -1580,6 +1585,9 @@ requires-dist = [
     { name = "widgetsnbextension", specifier = "==3.6.10" },
     { name = "zipp", specifier = "==3.23.0" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "ipykernel", specifier = ">=6.29.5" }]
 
 [[package]]
 name = "narwhals"

@@ -11,6 +11,7 @@ ENV PATH="/root/.local/bin:$PATH"
 
 # Add PYTHONPATH so Python can find 'src'
 ENV PYTHONPATH="/app"
+ENV PYTHONUNBUFFERED=1
 
 # Set workdir
 WORKDIR /app

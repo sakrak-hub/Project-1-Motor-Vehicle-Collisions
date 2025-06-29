@@ -6,9 +6,21 @@ import altair as alt
 import pydeck as pdk
 import plotly.express as px
 import json
-from .time_based_analysis import get_years_months
 
 conn = create_engine(get_postgres_connection_url())
+
+def get_years_months():
+    years_query = "SELECT DISTINCT EXTRACT(YEAR FROM crash_date)::INT AS year FROM motor_vehicle_collisions.mvc_crashes_silver ORDER BY year;"
+    years_df = pd.read_sql(years_query, conn)
+    available_years = years_df["year"].tolist()
+
+    min_year = min(available_years)
+    max_year = max(available_years)
+    
+    month_query = """SELECT DISTINCT EXTRACT(MONTH FROM crash_date)::INT AS month FROM motor_vehicle_collisions.mvc_crashes_silver ORDER BY month;"""
+    month_df = pd.read_sql(month_query, conn)
+    available_months = month_df["month"].tolist()
+    return available_years, min_year, max_year, available_months
 
 available_years, min_year, max_year, available_months = get_years_months()
 
@@ -48,7 +60,7 @@ def show():
     df_map["borough"] = df_map["borough"].str.title()
 
     # --- Load GeoJSON ---
-    with open("/mnt/d/Projects/Project-1-Motor-Vehicle-Collisions-/src/visualisation/data/Borough Boundaries_20250615.geojson") as f:
+    with open("./src/visualisation/data/Borough Boundaries_20250615.geojson") as f:
         borough_geojson = json.load(f)
 
     # --- Merge crash data into GeoJSON ---
