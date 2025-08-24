@@ -1,6 +1,6 @@
 # 🚗 Motor Vehicle Collision ELT Pipeline and Data Analysis
 
-This project automates the extraction, transformation, and visualization of motor vehicle collision data from NYC Open Data. It covers crash events, involved vehicles, and persons affected, and produces a monthly updated dashboard with analytical insights.
+This project automates the extraction, transformation, and visualization of motor vehicle collision data from NYC Open Data. It covers crash events, involved vehicles, and persons affected, and produces a weekly updated dashboard with analytical insights.
 
 ---
 
