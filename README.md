@@ -10,7 +10,7 @@ NYC's collision datasets contain **millions of rows**, making manual downloading
 
 This project solves the problem by:
 
-1. Automating **monthly ingestion** of three datasets (crashes, vehicles, persons).
+1. Automating **weekly ingestion** of three datasets (crashes, vehicles, persons).
 2. Using **DLT** to load raw data into **PostgreSQL** (bronze layer).
 3. Performing **data cleaning and transformation** (silver layer) using **Python (Pandas)** and **SQLAlchemy**.
 4. Generating **aggregated insights and visualizations** using **Streamlit**.
